@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+ul {
+  list-style-type: none;
+  text-align: center;
+}
+
+li {
+  border: 1px solid red;
+  width: 200px;
+  height: 100px;
+  text-align: center;
+  margin-left: 41%;
+  margin-right: 40%;
+}
+
+li button {
+  display: inline;
+  float: right;
+}
