@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 export function SearchBar(props) {
+  const searchTrack = props.searchTrack
   const [text, setText] = useState('')
 
   const handleTextChange = event => {
@@ -8,7 +9,8 @@ export function SearchBar(props) {
   } 
 
   const handleSubmit = event => {
-
+    event.preventDefault()
+    searchTrack(text)
   }
 
   return (
@@ -20,8 +22,7 @@ export function SearchBar(props) {
         value={text}
         onChange={handleTextChange}
       />
-      <input type="submit" onSubmit="handleSubmit"/>
-      <h2>{text}</h2>
+      <input type="submit"/>
     </form>
   )
 }

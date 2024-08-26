@@ -1,0 +1,14 @@
+#nameInput {
+  background-color: white;
+  color: black;
+  border: 0px;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  width: 200px;
+}
+
+#nameInput:focus {
+  border: 0px;
+  outline: none;
+}

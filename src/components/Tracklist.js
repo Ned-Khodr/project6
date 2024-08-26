@@ -17,6 +17,7 @@ export function Tracklist(props) {
             id={track.id}
             name={track.name}
             artist={track.artist}
+            album={track.album}
             trackFunction={trackFunction}
           />
         ))}

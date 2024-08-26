@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 export function Track(props) {
-  const { id, name, artist, trackFunction } = props
+  const { id, name, artist, album, trackFunction } = props
 
   const handleClick = () => {
     trackFunction(props)
@@ -14,8 +14,8 @@ export function Track(props) {
     <div>
       <li>
         <button onClick={handleClick}>{symbol}</button>
-        <h4>{name}</h4>
-        <h4>{artist}</h4>
+        <h3>{name}</h3>
+        <h5>{artist} | {album}</h5>
       </li>
     </div>
   )

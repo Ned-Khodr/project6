@@ -5,20 +5,23 @@ import { SearchResults } from './components/SearchResults';
 import { Playlist } from './components/Playlist';
 import React, { useState, useEffect } from 'react';
 
+
 function App() {
-  const [results, setResults] = useState([
-    {id: 4, name:"KNR", artist: "Vance Wilson",},
-    {id: 12, name:"ANG", artist: "Rina Wells",},
-    {id: 92, name:"Sonsio", artist: "Edward McLane",},
-    {id: 41, name:"Suffer", artist: "Kurt Dex N'Love",},
-    {id: 29, name:"Invisible", artist: "Kayla Wurz",},
-    {id: 41, name:"Sweet Victory", artist: "Carl Lassana",},
-    {id: 6, name:"Sideline", artist: "Max Chilton",},
-    {id: 17, name:"Maximum Overdrive", artist: "Wes O'Donathan",},
-    {id: 42, name:"The Answer", artist: "Juan Pablo Montoya",},
-    {id: 66, name:"Iron Airline", artist: "Emily Hamlin",},
+  const initial = [
+    {id: 4, name:"KNR", artist: "Vance Wilson", album: "McLaren 1-2"},
+    {id: 12, name:"ANG", artist: "Rina Wells", album: "Spiral"},
+    {id: 92, name:"Sonsio", artist: "Edward McLane", album: "Night Sky"},
+    {id: 41, name:"Suffer", artist: "Kurt Dex N'Love", album: "Rapax"},
+    {id: 29, name:"Invisible", artist: "Kayla Wurz", album: "McLaren 1-2"},
+    {id: 41, name:"Sweet Victory", artist: "Carl Lassana", album: "Spiral"},
+    {id: 6, name:"Sideline", artist: "Max Chilton", album: "Rapax"},
+    {id: 17, name:"Maximum Overdrive", artist: "Wes O'Donathan", album: "McLaren 1-2"},
+    {id: 42, name:"The Answer", artist: "Juan Pablo Montoya", album: "Target 42"},
+    {id: 66, name:"Iron Airline", artist: "Emily Hamlin", album: "Rapax"},
     
-  ])
+  ]
+
+  const [results, setResults] = useState(initial)
   const [userPlaylist, setUserPlaylist] = useState([])
 
   const addTrack = newTrack => {
@@ -27,6 +30,11 @@ function App() {
 
   const removeTrack = trackToRemove => {
     setUserPlaylist(prev => prev.filter(track => track.id !== trackToRemove.id))
+  }
+
+  const searchTrack = trackName => {
+    setResults(initial)
+    setResults(prev => prev.filter(track => track.name.toLowerCase().includes(trackName.toLowerCase())))
   }
 
   // const doubleTrack = newTrack => {
@@ -43,7 +51,7 @@ function App() {
   return (
     <div className="App">
       <h1>Amira</h1>
-      <SearchBar/>
+      <SearchBar searchTrack={searchTrack}/>
       <SearchResults tracklist={results} addTrack={addTrack}/>
       <Playlist tracklist={userPlaylist} removeTrack={removeTrack}/>
     </div>
