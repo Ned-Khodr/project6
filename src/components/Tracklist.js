@@ -14,6 +14,7 @@ export function Tracklist(props) {
       <ul>
         {tracklist.map(track => (
           <Track
+            key={track.id}
             id={track.id}
             name={track.name}
             artist={track.artist}

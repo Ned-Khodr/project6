@@ -8,7 +8,7 @@ export function Track(props) {
   }
 
   const symbol = trackFunction.name === "addTrack" ? "+" : "-"
-  console.log(trackFunction)
+  // console.log(trackFunction)
 
   return (
     <div>

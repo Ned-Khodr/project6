@@ -10,7 +10,8 @@ export function SearchBar(props) {
 
   const handleSubmit = event => {
     event.preventDefault()
-    searchTrack(text)
+    const token = localStorage.getItem('token')
+    searchTrack(text, token)
   }
 
   return (
