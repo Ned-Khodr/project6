@@ -4,13 +4,18 @@ import '../css/Playlist.css'
 
 
 export function Playlist(props) {
-  const { tracklist, removeTrack } = props
+  const { tracklist, removeTrack, savePlaylist } = props
 
   const [playlistName, setPlaylistName] = useState('')
 
   const handleNameChange = event => {
     setPlaylistName(event.target.value)
   } 
+
+  const handleSaveButton = () => {
+    // const token = sessionStorage.getItem('token')
+    savePlaylist(playlistName, tracklist)
+  }
 
 
   return (
@@ -23,7 +28,7 @@ export function Playlist(props) {
         onChange={handleNameChange}
       />
       <Tracklist tracklist={tracklist} trackFunction={removeTrack}/>
-      <button>Save to Spotify</button>
+      <button onClick={handleSaveButton}>Save to Spotify</button>
     </div>
   )
 }
