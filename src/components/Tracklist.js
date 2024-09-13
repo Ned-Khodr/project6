@@ -3,7 +3,7 @@ import { Track } from './Track';
 
 export function Tracklist(props) {
 
-  const { tracklist, trackFunction} = props
+  const { tracklist, trackFunction } = props
 
   if (tracklist.length === 0) {
     return <ul></ul>
@@ -19,6 +19,7 @@ export function Tracklist(props) {
             name={track.name}
             artist={track.artist}
             album={track.album}
+            uri={track.uri}
             trackFunction={trackFunction}
           />
         ))}

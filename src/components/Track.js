@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 export function Track(props) {
-  const { id, name, artist, album, trackFunction } = props
+  const { id, name, artist, album, uri, trackFunction } = props
 
   const handleClick = () => {
     trackFunction(props)

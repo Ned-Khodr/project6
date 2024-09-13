@@ -33,7 +33,7 @@ function App() {
     // console.log(newToken)
     setToken(newToken)
     sessionStorage.setItem('token', newToken)
-    console.log('STARTUP')
+    // console.log('STARTUP')
   }
 
   useEffect(() => {
@@ -45,7 +45,7 @@ function App() {
 
 
   const accessToken = (sessionStorage.getItem('token'))
-  console.log(accessToken)
+  // console.log(accessToken)
 
   const addTrack = newTrack => {
     setUserPlaylist(prev => !prev.some(track => track.id === newTrack.id) ? [...prev, newTrack] : prev)
@@ -77,6 +77,7 @@ function App() {
       })
 
       if (!response.ok) {
+        console.error(response)
         throw new Error(`Response status: ${response.status}`)
       }
 
@@ -124,17 +125,18 @@ function App() {
       )
     }
     // console.log(refinedData)
+    // console.log(refinedData.map(elem => elem.uri))
     return refinedData
   }
 
   const savePlaylist = async (playlistName, tracklist) => {
     const userID = await returnUsername()
-    console.log(userID)
-    console.log(playlistName)
-    console.log(accessToken)
+    // console.log(userID)
+    // console.log(playlistName)
+    // console.log(accessToken)
 
-    createNewPlaylist(userID, playlistName)
-    // addToNewPlaylist()
+    const playlistID = await createNewPlaylist(userID, playlistName)
+    addToNewPlaylist(playlistID)
     setUserPlaylist([])
   }
 
@@ -155,7 +157,7 @@ function App() {
       const json = await response.json();
       // console.log(typeof json.display_name)
       // console.log(json.display_name)
-      return (json.display_name)
+      return (json.id)
 
     } catch (error) {
       console.error(error.message)
@@ -164,7 +166,8 @@ function App() {
 
   const createNewPlaylist = async (userID, playlistName) => {
     // const link = `https://api.spotify.com/v1/users/${userID}/playlists`
-    const link = `https://api.spotify.com/v1/users/31p6nbd3kef7mmbmpx6wmpghhtbi/playlists`
+    // console.log(userID)
+    const link = `https://api.spotify.com/v1/users/${userID}/playlists`
 
     try { 
       // const link = 'https://api.spotify.com/v1/users/nedkhodr1/playlists'
@@ -191,13 +194,50 @@ function App() {
       }
       const json = await response.json();
       console.log(json)
-      console.log("YOU ARE THE MAN!!")
+      // console.log("YOU ARE THE MAN!!")
+      return json.id
       // return (json.display_name)
 
     } catch (error) {
       console.error(error.message)
     }
   } 
+
+  const addToNewPlaylist = async (playlistID) => {
+    console.log(playlistID)
+    const link = `https://api.spotify.com/v1/playlists/${playlistID}/tracks`
+
+    console.log(userPlaylist)
+
+    const trackURIs = userPlaylist.map(track => track.uri)
+    console.log(trackURIs)
+    
+
+    try {
+      const response = await fetch(link, {
+        method: 'POST',
+        body: JSON.stringify({
+          uris: trackURIs,
+          position: 0
+        }),
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization' : 'Bearer ' + accessToken,
+          // 'Access-Control-Allow-Origin' : 'http://localhost:3000/',
+        },
+      })
+      if (!response.ok) {
+        console.error(response)
+
+      }
+      const json = await response.json();
+      console.log(json)
+
+    } catch(error) {
+      console.log(error.message)
+    }
+
+  }
 
 
 // export async function getData() {
