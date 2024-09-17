@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Track } from './Track';
 
 export function Tracklist(props) {

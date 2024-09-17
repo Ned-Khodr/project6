@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react';
-
 export function Track(props) {
   const { id, name, artist, album, uri, trackFunction } = props
 
@@ -8,7 +6,6 @@ export function Track(props) {
   }
 
   const symbol = trackFunction.name === "addTrack" ? "+" : "-"
-  // console.log(trackFunction)
 
   return (
     <div>

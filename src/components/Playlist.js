@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Tracklist } from './Tracklist';
 import '../css/Playlist.css'
 
@@ -13,8 +13,7 @@ export function Playlist(props) {
   } 
 
   const handleSaveButton = () => {
-    // const token = sessionStorage.getItem('token')
-    savePlaylist(playlistName, tracklist)
+    savePlaylist(playlistName)
   }
 
 

@@ -22,7 +22,6 @@ export const authenticate = async () => {
   window.sessionStorage.setItem('code_verifier', codeVerifier);
   const hashed = await sha256(codeVerifier)
   const codeChallenge = base64encode(hashed);
-  // console.log(codeChallenge)
   
   const clientId = 'c37f5ccb59b1429597391b6b157b0642';
   const redirectUri = 'http://localhost:3000//callback';
@@ -48,11 +47,6 @@ export const authenticate = async () => {
   
   const urlParams = new URLSearchParams(window.location.search);
   let code = urlParams.get('code');
-  // console.log(code)
-  
-  // console.log(window.sessionStorage.getItem('code'))
-  
-  // console.log(window.sessionStorage.getItem('code'))
   const getToken = async code => {
 
     // stored in the previous step
@@ -79,53 +73,21 @@ export const authenticate = async () => {
       const response = await body.json();
       if (!response.access_token) {
         console.error('error response', response);
-        console.log('ERROR')
         throw new Error('HTTP status ' + response.status + ': ' + response.error + ":" + response.error_description);
       } else {
-        console.log(response)
-        // return response
+        // console.log(response)
         sessionStorage.setItem('access_token', response.access_token);
-        // console.log('NOT ERROR')
-        // console.log(sessionStorage.getItem('access_token'))
         window.sessionStorage.setItem('flag', true)
         return response.access_token
       }
     } catch (error) {
       console.log(error.message)
     } 
-  
-    // const body = await fetch(url, payload);
-    // const response = await body.json();
-    // if (!response.ok) {
-    //   console.error('error response', response);
-    //   throw new Error('HTTP status ' + response.status + ': ' + response.error + ":" + response.error_description);
-    // } else {
-    //   console.log(response)
-    //   // return response
-    // }
-    // console.log(response)
-
   }
   if(!sessionStorage.getItem('flag', true)) {
     const token = await getToken(code)
     return token
-    // console.log(window.sessionStorage.getItem('access_token'))
   }
 }
-// authenticate()
-// if(!sessionStorage.getItem('flag', true)) {
-//   const token = await getToken(code)
-//   return token
-//   // console.log(window.sessionStorage.getItem('access_token'))
-// }
-
-
-
-// if (!window.sessionStorage.getItem('started')) {
-//   authUrl.search = new URLSearchParams(params).toString();
-//   window.location.href = authUrl.toString();
-//   window.sessionStorage.setItem('started', true)
-// }
-
 
 
